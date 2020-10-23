@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+p {
+    text-align: center;
+    font-size: 100px;
+    position: relative;
+}
+
+div {
+    text-align: center;
+    font-size: 30px;
+    border: solid thick tomato;
+    background-color: tomato;
+    color: white;
+    border-radius: 100%;
+    width: 5%;
+    position: relative;
+    left: 45%;
+}
