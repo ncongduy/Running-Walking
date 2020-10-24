@@ -18,4 +18,5 @@ div {
     width: 5%;
     position: relative;
     left: 45%;
+    cursor: pointer;
 }

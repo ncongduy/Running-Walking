@@ -1,52 +1,54 @@
-// // Set the date we're counting down to
-// var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+//Declare variable
+const source = [
+  "./audio/Running.m4a",
+  "./audio/Walking.m4a",
+  "./audio/Complete.m4a",
+];
+const audio = document.querySelector("audio");
+const start = document.querySelector("div");
 
-// // Update the count down every 1 second
-// var x = setInterval(function () {
-//   // Get today's date and time
-//   var now = new Date().getTime();
-
-//   // Find the distance between now and the count down date
-//   var distance = countDownDate - now;
-
-//   // Time calculations for days, hours, minutes and seconds
-//   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-//   // Output the result in an element with id="demo"
-//   document.getElementById("demo").innerHTML =
-//     days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-//   // If the count down is over, write some text
-//   if (distance < 0) {
-//     clearInterval(x);
-//     document.getElementById("demo").innerHTML = "EXPIRED";
-//   }
-// }, 1000);
-
-//Setup Timer
-const current = new Date().getTime();
-
-const timer = setInterval(function () {
-  let now = new Date().getTime();
-  let distance = now - current;
-  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
-}, 1000);
-
-//Setup announcement
-const start = document.querySelector(".button");
-
-function playAudio(key) {
-  const audio = document.getElementById(key.dataset.note);
+//Create function play audio
+function playAudio(src) {
+  audio.src = source[src];
   audio.currentTime = 0;
   audio.play();
 }
 
-start.onclick = () => {
-  playAudio(start);
-};
+//Setup Timer
+function setupTimer(event) {
+  const current = new Date().getTime();
+  const timer = setInterval(function () {
+    let now = new Date().getTime();
+    let distance = now - current;
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.querySelector("p").innerHTML = minutes + "m " + seconds + "s ";
+
+    const countTime = Math.floor(distance / 1000);
+    if (
+      countTime === 1 ||
+      countTime === 60 * 3 ||
+      countTime === 60 * 6 ||
+      countTime === 60 * 9 ||
+      countTime === 60 * 12
+    ) {
+      playAudio(0);
+    } else if (
+      countTime === 60 ||
+      countTime === 60 * 4 ||
+      countTime === 60 * 7 ||
+      countTime === 60 * 10 ||
+      countTime === 60 * 13
+    ) {
+      playAudio(1);
+    } else if (countTime === 60 * 15) {
+      playAudio(2);
+      clearInterval(timer);
+    }
+  }, 1000);
+  start.removeEventListener("click", setupTimer);
+}
+
+//Setup event listener
+start.addEventListener("click", setupTimer);
