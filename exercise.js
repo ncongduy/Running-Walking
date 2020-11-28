@@ -29,20 +29,16 @@ function setupTimer(event) {
     if (
       countTime === 1 ||
       countTime === 60 * 3 ||
-      countTime === 60 * 6 ||
-      countTime === 60 * 9 ||
-      countTime === 60 * 12
+      countTime === 60 * 6
     ) {
       playAudio(0);
     } else if (
       countTime === 60 ||
       countTime === 60 * 4 ||
-      countTime === 60 * 7 ||
-      countTime === 60 * 10 ||
-      countTime === 60 * 13
+      countTime === 60 * 7
     ) {
       playAudio(1);
-    } else if (countTime === 60 * 15) {
+    } else if (countTime === 60 * 9) {
       playAudio(2);
       clearInterval(timer);
     }
